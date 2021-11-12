@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TodoCard from "./components/TodoCard";
+import TodoCardSection from "./components/TodoCardSection";
 import TodoInput from "./components/TodoInput";
 import { Todo } from "./domains/Todo";
 import "./index.css";
@@ -22,7 +22,7 @@ const App = () => {
           setTodoList((oldState) => [...oldState, newTodo]);
         }}
       />
-      <TodoCard todoList={todoList} onRemove={handleRemove} />
+      <TodoCardSection todoList={todoList} onRemove={handleRemove} />
     </>
   );
 };
