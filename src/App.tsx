@@ -3,6 +3,7 @@ import TodoCardSection from "./components/TodoCardSection";
 import TodoInput from "./components/TodoInput";
 import { Todo } from "./domains/Todo";
 import "./index.css";
+import Wrapper from "./components/Wrapper";
 
 const App = () => {
   const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -15,15 +16,14 @@ const App = () => {
   };
 
   return (
-    <>
-      <h1>Todo List</h1>
+    <Wrapper>
       <TodoInput
         submitTodo={(newTodo) => {
           setTodoList((oldState) => [...oldState, newTodo]);
         }}
       />
       <TodoCardSection todoList={todoList} onRemove={handleRemove} />
-    </>
+    </Wrapper>
   );
 };
 

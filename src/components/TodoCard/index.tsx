@@ -9,7 +9,7 @@ interface TodoCardProps {
 
 const TodoCard = ({ todo, onRemove }: TodoCardProps) => {
   return (
-    <Card sx={{ maxWidth: 275 }} style={{ marginTop: 32 }}>
+    <Card style={{ width: "100%", marginTop: 32 }}>
       <div
         style={{
           display: "flex",

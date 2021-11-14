@@ -27,8 +27,9 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ display: "flex" }}>
       <TextField
+        style={{ width: "100%", marginRight: 32 }}
         id="standard-basic"
         variant="standard"
         value={label ?? ""}
@@ -41,7 +42,7 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
         value="Submit"
         disabled={!label}
       >
-        Add Todo
+        Add
       </Button>
     </form>
   );
