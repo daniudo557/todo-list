@@ -1,0 +1,10 @@
+.wrapper {
+  width: 275px;
+
+  @media (min-width: 600px) {
+    width: 80%;
+  }
+  @media (min-width: 1000px) {
+    width: 60%;
+  }
+}
