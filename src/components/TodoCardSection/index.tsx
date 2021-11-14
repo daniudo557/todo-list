@@ -1,5 +1,7 @@
+import { Collapse } from "@mui/material";
 import { Todo } from "src/domains/Todo";
 import TodoCard from "../TodoCard";
+import { TransitionGroup } from "react-transition-group";
 
 interface TodoCardSectionProps {
   todoList: Todo[];
@@ -8,11 +10,13 @@ interface TodoCardSectionProps {
 
 const TodoCardSection = ({ todoList, onRemove }: TodoCardSectionProps) => {
   return (
-    <div>
+    <TransitionGroup>
       {todoList.map((todo) => (
-        <TodoCard todo={todo} onRemove={onRemove} />
+        <Collapse key={todo.id}>
+          <TodoCard todo={todo} onRemove={onRemove} />
+        </Collapse>
       ))}
-    </div>
+    </TransitionGroup>
   );
 };
 
