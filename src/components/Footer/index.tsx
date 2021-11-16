@@ -1,14 +1,16 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Toolbar, Typography } from "@mui/material";
+import "./Footer.scss";
 
 const Footer = () => {
   return (
-    <AppBar position="static" color="primary">
+    <footer className="footer">
       <Toolbar>
-        <Typography variant="body1" color="inherit">
+        <Typography variant="body1" color="white">
           © 2021 Todo List
         </Typography>
       </Toolbar>
-    </AppBar>
+    </footer>
   );
 };
+
 export default Footer;
