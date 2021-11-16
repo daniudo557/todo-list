@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Todo } from "src/domains/Todo";
 
 interface TodoInputProps {
@@ -9,11 +9,11 @@ interface TodoInputProps {
 const TodoInput = ({ submitTodo }: TodoInputProps) => {
   const [label, setLabel] = useState<string>();
 
-  const handleChangeTodo = (event: any) => {
+  const handleChangeTodo = (event: ChangeEvent<HTMLInputElement>) => {
     setLabel(event.target.value);
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
     if (!label) return;
