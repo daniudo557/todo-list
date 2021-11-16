@@ -1,6 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, Card } from "@mui/material";
 import { Todo } from "src/domains/Todo";
+import "./TodoCard.scss";
 
 interface TodoCardProps {
   todo: Todo;
@@ -8,17 +9,13 @@ interface TodoCardProps {
 }
 
 const TodoCard = ({ todo, onRemove }: TodoCardProps) => {
+  const handleRemove = () => onRemove(todo);
+
   return (
-    <Card style={{ width: "100%", marginTop: 32 }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <p style={{ paddingLeft: 24 }}>{todo.label}</p>
-        <Button color="error" onClick={() => onRemove(todo)}>
+    <Card className="card">
+      <div className="card-content">
+        <p className="label">{todo.label}</p>
+        <Button color="error" onClick={handleRemove}>
           <DeleteIcon />
         </Button>
       </div>
