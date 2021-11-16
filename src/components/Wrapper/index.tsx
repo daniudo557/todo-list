@@ -7,16 +7,8 @@ interface WrapperProps {
 
 const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: 32,
-      }}
-    >
-      <div className="wrapper">{children}</div>
+    <div className="container">
+      <div className="content">{children}</div>
     </div>
   );
 };
