@@ -9,7 +9,6 @@ import Footer from "./components/Footer";
 
 const App = () => {
   const [todoList, setTodoList] = useState<Todo[]>([]);
-  console.log(todoList);
 
   const handleRemove = (selectedTodo: Todo) => {
     const newTodoList = todoList.filter((todo) => todo.id !== selectedTodo.id);
@@ -17,15 +16,15 @@ const App = () => {
     setTodoList(newTodoList);
   };
 
+  const handleSubmitTodo = (newTodo: Todo) => {
+    setTodoList((oldState) => [...oldState, newTodo]);
+  };
+
   return (
     <>
       <Appbar />
       <Wrapper>
-        <TodoInput
-          submitTodo={(newTodo) => {
-            setTodoList((oldState) => [...oldState, newTodo]);
-          }}
-        />
+        <TodoInput submitTodo={handleSubmitTodo} />
         <TodoCardSection todoList={todoList} onRemove={handleRemove} />
       </Wrapper>
       <Footer />
