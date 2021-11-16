@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Todo } from "src/domains/Todo";
+import "./TodoInput.scss";
 
 interface TodoInputProps {
   submitTodo: (newTodo: Todo) => void;
@@ -27,10 +28,9 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex" }}>
+    <form onSubmit={handleSubmit} className="form">
       <TextField
-        style={{ width: "100%", marginRight: 32 }}
-        id="standard-basic"
+        className="text-field"
         variant="standard"
         value={label ?? ""}
         placeholder="Today I have to..."
