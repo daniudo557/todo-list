@@ -13,6 +13,7 @@ const Wrapper = ({ children }: WrapperProps) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        paddingTop: 32,
       }}
     >
       <div className="wrapper">{children}</div>
