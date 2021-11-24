@@ -9,20 +9,35 @@ interface TodoInputProps {
 
 const TodoInput = ({ submitTodo }: TodoInputProps) => {
   const [label, setLabel] = useState<string>();
+  const [hasLabelError, setHasLabelError] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>();
+  const [hasDescriptionError, setHasDescriptionError] =
+    useState<boolean>(false);
 
-  const handleChangeTodo = (event: ChangeEvent<HTMLInputElement>) => {
-    setLabel(event.target.value);
+  const handleChangeLabel = (event: ChangeEvent<HTMLInputElement>) => {
+    const newLabel = event.target.value;
+
+    setHasLabelError(newLabel.length < 3);
+    setLabel(newLabel);
+  };
+
+  const handleChangeDescription = (event: ChangeEvent<HTMLInputElement>) => {
+    const newDescription = event.target.value;
+
+    setHasDescriptionError(newDescription.length < 3);
+    setDescription(newDescription);
   };
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
-    if (!label) return;
+    if (!label || !description) return;
 
-    const id = new Date().getTime() / 1000;
-    const newTodo: Todo = { id, label };
+    const id = new Date().getTime();
+    const newTodo: Todo = { id, label, description };
 
     setLabel(undefined);
+    setDescription(undefined);
 
     return submitTodo(newTodo);
   };
@@ -33,8 +48,21 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
         className="text-field"
         variant="standard"
         value={label ?? ""}
+        error={hasLabelError}
+        helperText={hasLabelError && "Label must have more than 3 characters"}
         placeholder="Today I have to..."
-        onChange={handleChangeTodo}
+        onChange={handleChangeLabel}
+      />
+      <TextField
+        className="text-field"
+        variant="standard"
+        value={description ?? ""}
+        error={hasDescriptionError}
+        helperText={
+          hasDescriptionError && "Descrition must have more than 3 characters"
+        }
+        placeholder="Description"
+        onChange={handleChangeDescription}
       />
       <Button
         sx={{ marginLeft: 4 }}
@@ -42,7 +70,9 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
         variant="contained"
         type="submit"
         value="Submit"
-        disabled={!label}
+        disabled={
+          !label || !description || hasLabelError || hasDescriptionError
+        }
       >
         Add
       </Button>
