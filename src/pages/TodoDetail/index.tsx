@@ -1,15 +1,10 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
 
 import { Todo } from "src/domains/Todo";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import TodoCard from "src/components/TodoCard";
+
 import "./TodoDetail.scss";
 
 interface TodoDetailProps {
@@ -41,30 +36,7 @@ const TodoDetail = (props: TodoDetailProps) => {
         Go back
       </Typography>
 
-      <Card sx={{ maxWidth: "100%", marginTop: "32px" }}>
-        <CardMedia
-          component="img"
-          alt="todo list"
-          height="140"
-          image="https://images.pexels.com/photos/1226398/pexels-photo-1226398.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {todo.label}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {todo.description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={() => handleRemove(todo)}>
-            Complete Todo
-          </Button>
-          <Button size="small" onClick={() => handleRemove(todo)}>
-            Cancel Todo
-          </Button>
-        </CardActions>
-      </Card>
+      <TodoCard todo={todo} onRemove={handleRemove} type="large" />
     </>
   );
 };
