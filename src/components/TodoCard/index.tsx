@@ -1,5 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, Card } from "@mui/material";
+import { Button, Card, Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
 import { Todo } from "src/domains/Todo";
 import "./TodoCard.scss";
 
@@ -14,10 +15,22 @@ const TodoCard = ({ todo, onRemove }: TodoCardProps) => {
   return (
     <Card className="card">
       <div className="card-content">
-        <p className="label">{todo.label}</p>
-        <Button color="error" onClick={handleRemove}>
-          <DeleteIcon />
-        </Button>
+        <Tooltip title="See details">
+          <Button
+            component={Link}
+            to={`/todo/${todo.id}`}
+            className="card-link"
+            color="primary"
+          >
+            <p className="label">{todo.label}</p>
+          </Button>
+        </Tooltip>
+
+        <Tooltip title="Delete">
+          <Button color="error" onClick={handleRemove}>
+            <DeleteIcon />
+          </Button>
+        </Tooltip>
       </div>
     </Card>
   );

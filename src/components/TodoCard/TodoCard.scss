@@ -7,6 +7,16 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
+  &-link {
+    width: 100%;
+    display: inline-block !important;
+    text-transform: none !important;
+  }
+}
+
+.teste {
+  width: 100%;
 }
 
 .label {
