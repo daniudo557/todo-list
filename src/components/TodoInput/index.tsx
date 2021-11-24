@@ -65,7 +65,6 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
         onChange={handleChangeDescription}
       />
       <Button
-        sx={{ marginLeft: 4 }}
         className="button"
         variant="contained"
         type="submit"
