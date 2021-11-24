@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 
 import { AccountCircle, Menu } from "@mui/icons-material";
+import { useHistory } from "react-router-dom";
+import "./Appbar.scss";
 
 interface HideOnScrollProps {
   window?: () => Window;
@@ -29,6 +31,10 @@ function HideOnScroll(props: HideOnScrollProps) {
 }
 
 const Appbar = () => {
+  const history = useHistory();
+
+  const handleClick = () => history.push(`/`);
+
   return (
     <>
       <HideOnScroll>
@@ -43,9 +49,17 @@ const Appbar = () => {
             >
               <Menu />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+
+            <Typography
+              onClick={handleClick}
+              variant="h6"
+              component="a"
+              className="header-link"
+              sx={{ flexGrow: 1 }}
+            >
               Todo List
             </Typography>
+
             <IconButton size="large" color="inherit">
               <AccountCircle />
             </IconButton>
