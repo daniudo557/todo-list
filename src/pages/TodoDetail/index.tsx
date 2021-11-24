@@ -6,6 +6,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TodoCard from "src/components/TodoCard";
 
 import "./TodoDetail.scss";
+import EmptyData from "src/components/EmptyData";
 
 interface TodoDetailProps {
   todoList: Todo[];
@@ -21,22 +22,24 @@ const TodoDetail = (props: TodoDetailProps) => {
 
   const handleClick = () => history.goBack();
 
-  if (!todo) return <h1>No data</h1>;
-
   return (
     <>
       <Typography
-        variant="h4"
+        variant="h5"
         component="a"
         onClick={handleClick}
         className="back-link"
         sx={{ flexGrow: 1 }}
       >
-        <ArrowBackIosNewIcon />
+        <ArrowBackIosNewIcon sx={{ fontSize: 20 }} />
         Go back
       </Typography>
 
-      <TodoCard todo={todo} onRemove={handleRemove} type="large" />
+      {todo ? (
+        <TodoCard todo={todo} onRemove={handleRemove} type="large" />
+      ) : (
+        <EmptyData />
+      )}
     </>
   );
 };
