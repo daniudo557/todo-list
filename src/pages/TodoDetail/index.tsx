@@ -4,9 +4,10 @@ import { useHistory, useParams } from "react-router-dom";
 import { Todo } from "src/domains/Todo";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TodoCard from "src/components/TodoCard";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import "./TodoDetail.scss";
-import EmptyData from "src/components/EmptyData";
+import Warning from "src/components/Warning";
 
 interface TodoDetailProps {
   todoList: Todo[];
@@ -38,7 +39,7 @@ const TodoDetail = (props: TodoDetailProps) => {
       {todo ? (
         <TodoCard todo={todo} onRemove={handleRemove} type="large" />
       ) : (
-        <EmptyData />
+        <Warning icon={<ErrorOutlineIcon />} message="No data found" />
       )}
     </>
   );
