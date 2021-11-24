@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import { Route, Switch } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import TodoDetail from "./pages/TodoDetail";
-import { Typography } from "@mui/material";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -38,14 +38,7 @@ const App = () => {
             <TodoDetail todoList={todoList} handleRemove={handleRemove} />
           </Route>
           <Route path="*">
-            <Typography
-              variant="h6"
-              component="a"
-              className="header-link"
-              sx={{ flexGrow: 1 }}
-            >
-              Page not found
-            </Typography>
+            <NotFound />
           </Route>
         </Switch>
       </Wrapper>
