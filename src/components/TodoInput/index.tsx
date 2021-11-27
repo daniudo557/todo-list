@@ -1,57 +1,63 @@
 import { Button, TextField } from "@mui/material";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useCallback, useState } from "react";
 import { Todo } from "src/domains/Todo";
+import { useTodo } from "src/hooks/useTodo";
 import "./TodoInput.scss";
 
-interface TodoInputProps {
-  submitTodo: (newTodo: Todo) => void;
-}
-
-const TodoInput = ({ submitTodo }: TodoInputProps) => {
-  const [label, setLabel] = useState<string>();
-  const [hasLabelError, setHasLabelError] = useState<boolean>(false);
+const TodoInput = () => {
+  const { createTodo } = useTodo();
+  const [title, setTitle] = useState<string>();
+  const [hasTitleError, setHasTitleError] = useState<boolean>(false);
   const [description, setDescription] = useState<string>();
   const [hasDescriptionError, setHasDescriptionError] =
     useState<boolean>(false);
 
-  const handleChangeLabel = (event: ChangeEvent<HTMLInputElement>) => {
-    const newLabel = event.target.value;
+  const handleChangeTitle = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newTitle = event.target.value;
 
-    setHasLabelError(newLabel.length < 3);
-    setLabel(newLabel);
-  };
+      setHasTitleError(newTitle.length < 3);
+      setTitle(newTitle);
+    },
+    []
+  );
 
-  const handleChangeDescription = (event: ChangeEvent<HTMLInputElement>) => {
-    const newDescription = event.target.value;
+  const handleChangeDescription = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newDescription = event.target.value;
 
-    setHasDescriptionError(newDescription.length < 3);
-    setDescription(newDescription);
-  };
+      setHasDescriptionError(newDescription.length < 3);
+      setDescription(newDescription);
+    },
+    []
+  );
 
-  const handleSubmit = (event: SyntheticEvent) => {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: SyntheticEvent) => {
+      event.preventDefault();
 
-    if (!label || !description) return;
+      if (!title || !description) return;
 
-    const id = new Date().getTime();
-    const newTodo: Todo = { id, label, description };
+      const newTodo: Partial<Todo> = { title, description };
 
-    setLabel(undefined);
-    setDescription(undefined);
+      setTitle(undefined);
+      setDescription(undefined);
 
-    return submitTodo(newTodo);
-  };
+      createTodo(newTodo);
+    },
+    [createTodo, description, title]
+  );
 
   return (
     <form onSubmit={handleSubmit} className="form">
       <TextField
         className="text-field"
         variant="standard"
-        value={label ?? ""}
-        error={hasLabelError}
-        helperText={hasLabelError && "Label must have more than 3 characters"}
+        value={title ?? ""}
+        error={hasTitleError}
+        helperText={hasTitleError && "Title must have more than 3 characters"}
         placeholder="Today I have to..."
-        onChange={handleChangeLabel}
+        onChange={handleChangeTitle}
       />
       <TextField
         className="text-field"
@@ -70,7 +76,7 @@ const TodoInput = ({ submitTodo }: TodoInputProps) => {
         type="submit"
         value="Submit"
         disabled={
-          !label || !description || hasLabelError || hasDescriptionError
+          !title || !description || hasTitleError || hasDescriptionError
         }
       >
         Add
