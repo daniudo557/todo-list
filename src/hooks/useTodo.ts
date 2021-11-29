@@ -12,11 +12,15 @@ export const useTodo = () => {
   const queryClient = useQueryClient();
   const params: { id?: string } = useParams();
 
-  const { data: todoList } = useQuery("todoList", fetchTodoService, {
-    enabled: !params.id,
-  });
+  const { data: todoList, isLoading: isLoadingTodoList } = useQuery(
+    "todoList",
+    fetchTodoService,
+    {
+      enabled: !params.id,
+    }
+  );
 
-  const { data: todo } = useQuery(
+  const { data: todo, isLoading: isLoadingTodo } = useQuery(
     "todo",
     () => findTodoService(params.id as string),
     {
@@ -45,5 +49,12 @@ export const useTodo = () => {
     },
   });
 
-  return { todo, todoList, createTodo, removeTodo, updateTodo };
+  return {
+    todo,
+    isLoading: isLoadingTodo || isLoadingTodoList,
+    todoList,
+    createTodo,
+    removeTodo,
+    updateTodo,
+  };
 };
