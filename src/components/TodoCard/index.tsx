@@ -14,10 +14,12 @@ import {
 import { useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Todo, TodoStatus } from "src/domains/Todo";
+import { distanceSiceNow } from "src/helpers/date";
 import { useTodo } from "src/hooks/useTodo";
 import StatusFlag from "../StatusFlag";
 
 import "./TodoCard.scss";
+import TodoCardSkeleton from "./TodoCardSkeleton";
 
 interface TodoCardProps {
   todo: Todo;
@@ -30,6 +32,16 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
   const isPending = useMemo(
     () => todo.status === TodoStatus.PENDING,
     [todo.status]
+  );
+
+  const createdDate = useMemo(
+    () => distanceSiceNow(todo.createdAt),
+    [todo.createdAt]
+  );
+
+  const updatedDate = useMemo(
+    () => distanceSiceNow(todo.updatedAt),
+    [todo.updatedAt]
   );
 
   const toggleTodoStatus = useCallback(
@@ -79,23 +91,35 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
       <CardMedia
         component="img"
         alt="todo list"
-        height="140"
+        height="200"
         image="https://images.pexels.com/photos/1226398/pexels-photo-1226398.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       />
       <CardContent>
         <Stack direction="row" justifyContent="space-between">
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{ textDecoration: isPending ? "none" : "line-through" }}
-          >
-            {todo.title}
-          </Typography>
+          <Stack direction="row" alignItems="flex-end">
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ textDecoration: isPending ? "none" : "line-through" }}
+            >
+              {todo.title}
+            </Typography>
+          </Stack>
+
           <StatusFlag isPending={isPending} />
         </Stack>
 
-        <Typography variant="body2" color="text.secondary">
+        <Stack>
+          <Typography variant="caption" color="text.secondary">
+            Created {createdDate}
+          </Typography>
+
+          <Typography variant="caption" color="text.secondary">
+            Updated {updatedDate}
+          </Typography>
+        </Stack>
+
+        <Typography variant="h6" color="text.secondary" sx={{ marginTop: 3 }}>
           {todo.description}
         </Typography>
       </CardContent>
@@ -104,7 +128,7 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
           Cancel Todo
         </Button>
         <Button size="small" onClick={handleUpdate}>
-          Complete Todo
+          {isPending ? "Complete Todo" : "Uncomplete Todo"}
         </Button>
       </CardActions>
     </>
@@ -116,5 +140,7 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
     </Card>
   );
 };
+
+TodoCard.Skeleton = TodoCardSkeleton;
 
 export default TodoCard;
