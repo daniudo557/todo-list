@@ -14,8 +14,8 @@ import {
 import { useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Todo, TodoStatus } from "src/domains/Todo";
-import { distanceSiceNow } from "src/helpers/date";
 import { useTodo } from "src/hooks/useTodo";
+import DateLabel from "../DateLabel";
 import StatusFlag from "../StatusFlag";
 
 import "./TodoCard.scss";
@@ -32,16 +32,6 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
   const isPending = useMemo(
     () => todo.status === TodoStatus.PENDING,
     [todo.status]
-  );
-
-  const createdDate = useMemo(
-    () => distanceSiceNow(todo.createdAt),
-    [todo.createdAt]
-  );
-
-  const updatedDate = useMemo(
-    () => distanceSiceNow(todo.updatedAt),
-    [todo.updatedAt]
   );
 
   const toggleTodoStatus = useCallback(
@@ -110,13 +100,8 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
         </Stack>
 
         <Stack>
-          <Typography variant="caption" color="text.secondary">
-            Created {createdDate}
-          </Typography>
-
-          <Typography variant="caption" color="text.secondary">
-            Updated {updatedDate}
-          </Typography>
+          <DateLabel label="Created" date={todo.createdAt} />
+          <DateLabel label="Updated" date={todo.updatedAt} />
         </Stack>
 
         <Typography variant="h6" color="text.secondary" sx={{ marginTop: 3 }}>
@@ -125,7 +110,7 @@ const TodoCard = ({ todo, type = "small" }: TodoCardProps) => {
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleRemove}>
-          Cancel Todo
+          Delete Todo
         </Button>
         <Button size="small" onClick={handleUpdate}>
           {isPending ? "Complete Todo" : "Uncomplete Todo"}
