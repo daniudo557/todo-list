@@ -4,7 +4,9 @@ import { TransitionGroup } from "react-transition-group";
 import { useTodo } from "src/hooks/useTodo";
 
 const TodoCardSection = () => {
-  const { todoList } = useTodo();
+  const { todoList, isLoading } = useTodo();
+
+  if (isLoading) return <TodoCard.Skeleton />;
 
   return (
     <TransitionGroup>

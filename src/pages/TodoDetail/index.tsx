@@ -11,9 +11,11 @@ import { useTodo } from "src/hooks/useTodo";
 
 const TodoDetail = () => {
   const history = useHistory();
-  const { todo } = useTodo();
+  const { todo, isLoading } = useTodo();
 
   const handleClick = () => history.goBack();
+
+  if (isLoading) return <TodoCard.Skeleton type="large" />;
 
   return (
     <>
