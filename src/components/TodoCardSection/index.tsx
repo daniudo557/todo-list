@@ -1,19 +1,18 @@
 import { Collapse } from "@mui/material";
-import { Todo } from "src/domains/Todo";
 import TodoCard from "../TodoCard";
 import { TransitionGroup } from "react-transition-group";
+import { useTodo } from "src/hooks/useTodo";
 
-interface TodoCardSectionProps {
-  todoList: Todo[];
-  onRemove: (todo: Todo) => void;
-}
+const TodoCardSection = () => {
+  const { todoList, isLoading } = useTodo();
 
-const TodoCardSection = ({ todoList, onRemove }: TodoCardSectionProps) => {
+  if (isLoading) return <TodoCard.Skeleton />;
+
   return (
     <TransitionGroup>
-      {todoList.map((todo) => (
+      {todoList?.map((todo) => (
         <Collapse key={todo.id}>
-          <TodoCard todo={todo} onRemove={onRemove} />
+          <TodoCard todo={todo} />
         </Collapse>
       ))}
     </TransitionGroup>

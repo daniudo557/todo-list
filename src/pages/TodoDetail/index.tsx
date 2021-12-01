@@ -1,27 +1,21 @@
 import { Typography } from "@mui/material";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import { Todo } from "src/domains/Todo";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TodoCard from "src/components/TodoCard";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import "./TodoDetail.scss";
 import Warning from "src/components/Warning";
+import { useTodo } from "src/hooks/useTodo";
 
-interface TodoDetailProps {
-  todoList: Todo[];
-  handleRemove: (todo: Todo) => void;
-}
-
-const TodoDetail = (props: TodoDetailProps) => {
-  const { todoList, handleRemove } = props;
-  const params: any = useParams();
+const TodoDetail = () => {
   const history = useHistory();
-
-  const todo = todoList.find((t) => String(t.id) === params.id);
+  const { todo, isLoading } = useTodo();
 
   const handleClick = () => history.goBack();
+
+  if (isLoading) return <TodoCard.Skeleton type="large" />;
 
   return (
     <>
@@ -37,7 +31,7 @@ const TodoDetail = (props: TodoDetailProps) => {
       </Typography>
 
       {todo ? (
-        <TodoCard todo={todo} onRemove={handleRemove} type="large" />
+        <TodoCard todo={todo} type="large" />
       ) : (
         <Warning icon={<ErrorOutlineIcon />} message="No data found" />
       )}
