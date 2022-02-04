@@ -59,6 +59,7 @@ const TodoInput = () => {
         placeholder="Today I have to..."
         onChange={handleChangeTitle}
       />
+
       <TextField
         className="text-field"
         variant="standard"
@@ -70,6 +71,7 @@ const TodoInput = () => {
         placeholder="Description"
         onChange={handleChangeDescription}
       />
+
       <Button
         className="button"
         variant="contained"
